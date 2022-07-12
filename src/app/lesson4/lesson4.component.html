@@ -1,0 +1,58 @@
+<div class="block-input">
+    <input type="text" name="text" id="textInput"  [(ngModel)]="field" placeholder="search here">
+    <button name="add" id="addBtn" (click)="addButton()">Add contact</button>
+</div>
+
+<div class="table-block">
+    <table id="table">
+        <thead>
+            <tr>
+                <td>First name
+                    <button (click)="changeSort('asc')">A-Z</button>
+                    <button (click)="changeSort('desc')">Z-A</button>
+                </td>
+                <td>Last name
+                    <button (click)="changeSort('asc')">A-Z</button>
+                    <button (click)="changeSort('desc')">Z-A</button>
+                </td>
+                <td>Number
+                    <button (click)="changeSort('asc')">A-Z</button>
+                    <button (click)="changeSort('desc')">Z-A</button>
+                </td>
+                <td>Edit</td>
+                <td>Delete</td>  
+            </tr>
+            <tr  *ngFor="let con of contactArray  | search:field | sort:type ; index as i">
+                <td> {{ con.firstName }} </td> 
+                <td> {{ con.lastName  }} </td> 
+                <td> {{ con.number }} </td>
+                <td>  <button class="editButton" (click)="editBtn(i)" >Edit</button> </td>
+                <td> <button class="deleteButton" (click)="deleteBtn(i)" >Delete</button> </td> 
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            
+        </tbody>
+    </table>
+    <ng-container *ngIf="contactArray.length === 0">
+        <div class="block-empty">
+            Not found contacts. 
+        </div>
+    </ng-container>
+
+    
+</div>
+
+
+<div class="popupAdd" [hidden]="addContactHidden">
+    <div class="forAddContact">
+        <p id="addText">Add contact</p>
+        <hr>
+        <input type="text" id="firstAdd" placeholder="first name..." [(ngModel)]="firstAdd">
+        <input type="text" id="lastAdd" placeholder="last name..." [(ngModel)]="lastAdd">
+        <input type="text" id="numberAdd" placeholder="number..." [(ngModel)]="numberAdd">
+        <button id="saveAdd" (click)="saveAdd()" [hidden] = "hiddenSaveAdd">add</button>
+        <button id="saveAdd" (click)="saveEdit()" [hidden] = "hiddenEditAdd">save </button>
+    </div>
+</div>
+
